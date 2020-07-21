@@ -6,10 +6,6 @@ function isObject(tar) {
     return (typeof tar === 'object') && (tar !== null) && !isArray(tar)
 }
 
-function isObjectOrArray(tar) {
-    return (typeof tar === 'object') && (tar !== null)
-}
-
 /**
  * 处理数组
  * @param value 当前值
@@ -19,7 +15,6 @@ function isObjectOrArray(tar) {
 const handleArray = (value, curPath, store) => {
     value.forEach((item, idx) => {        // forEach 会跳过数组空位
         const arrPath = `${ curPath }[${ idx }]`  // 拼接数组路径
-        console.log({ item, idx, arrPath, curPath })
         if (isObject(item)) {
             objToPath(item, arrPath + '.', store)
         } else if (isArray(item)) {
@@ -57,11 +52,15 @@ export const objToPath = (obj,
     return store
 }
 
+/**
+ * 将函数挂载到 page 实例上
+ * @param Page
+ * @returns {function(*=): *}
+ */
 export const updataInit = Page => {
     const originalPage = Page
     return function(config) {
         config.upData = function(data, func) {
-            console.log(objToPath(data))
             return this.setData(objToPath(data), func)
         }
         return originalPage(config)
