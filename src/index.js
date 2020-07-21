@@ -55,12 +55,16 @@ export const objToPath = (obj,
 /**
  * 将函数挂载到 page 实例上
  * @param Page
- * @returns {function(*=): *}
+ * @returns {function(any=): any}
+ * @param conf
  */
-export const updataInit = Page => {
+export const updataInit = (Page, conf) => {
     const originalPage = Page
     return function(config) {
         config.upData = function(data, func) {
+            if (conf.debug) {
+                console.log('转化后效果:', objToPath(data))
+            }
             return this.setData(objToPath(data), func)
         }
         return originalPage(config)
