@@ -1,0 +1,39 @@
+{
+  "name": "wx-updata",
+  "version": "0.0.1",
+  "description": "官方 setData 替代品",
+  "main": "dist/wx-updata.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "rollup -c",
+    "postversion": "yarn build && git push --tags && git push && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sherlocked93/wx-updata.git"
+  },
+  "keywords": [
+    "setData",
+    "es6",
+    "小程序",
+    "weapp",
+    "miniapp",
+    "weixin"
+  ],
+  "author": "youngjuning",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sherlocked93/wx-updata/issues"
+  },
+  "homepage": "https://github.com/sherlocked93/wx-updata#readme",
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "rollup": "^1.28.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.1.3"
+  }
+}
