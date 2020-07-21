@@ -36,9 +36,9 @@ const handleArray = (value, curPath, store) => {
  * @param prefix 路径前缀
  * @param store 结果
  */
-const objToPath = (obj,
-                   prefix = '',
-                   store = {}) => {
+export const objToPath = (obj,
+                          prefix = '',
+                          store = {}) => {
     for (const [key, value] of Object.entries(obj)) {
         const curPath = prefix === ''  // 当前路径
           ? key
@@ -55,4 +55,15 @@ const objToPath = (obj,
         }
     }
     return store
+}
+
+export const updataInit = Page => {
+    const originalPage = Page
+    return function(config) {
+        config.upData = function(data, func) {
+            console.log(objToPath(data))
+            return this.setData(objToPath(data), func)
+        }
+        return originalPage(config)
+    }
 }
