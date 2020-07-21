@@ -1,8 +1,8 @@
 # wx-updata
 
-官方 setData 替代品
+微信小程序官方 setData 替代品 ✈️
 
-[![npm](https://img.shields.io/npm/v/wx-updata.svg)](https://www.npmjs.com/package/wx-updata) [![npm](https://img.shields.io/npm/dt/wx-updata.svg)](https://www.npmjs.com/package/wx-updata) [![Financial Contributors on Open Collective](https://opencollective.com/wx-updata/all/badge.svg?label=financial+contributors)](https://opencollective.com/wx-updata)
+[![npm](https://img.shields.io/npm/v/wx-updata.svg)](https://www.npmjs.com/package/wx-updata) [![npm](https://img.shields.io/npm/dt/wx-updata.svg)](https://www.npmjs.com/package/wx-updata)
 
 [![NPM](https://nodei.co/npm/wx-updata.png?compact=true)](https://nodei.co/npm/wx-updata/)
 
@@ -14,11 +14,19 @@
 
 > 你也可以直接把 `dist` 目录下的 `wx-updata.js` 拷贝到项目里使用
 
+
 ```bash
+$ npm i -S wx-updata
 # or
-$ npm i wx-updata
 $ yarn add wx-updata
 ```
+
+然后：
+
+1. 把微信开发者工具面板右侧的 `详情 - 本地设置 - 使用npm模块` 按钮打开；
+2. 点击微信开发者工具面板工具栏的 `工具 - 构建npm`；
+
+构建后成功生成 miniprogram_npm 文件夹就可以正常使用了
 
 ## 初始化
 

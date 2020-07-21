@@ -43,11 +43,3 @@ export const objToPath = (obj,
     }
     return store
 }
-
-const obj = { a: 1, b: { c: 2 }, d: [{ e: 3 }, , { f: 4, g: { h: 5 }, i: [{ j: 'k' }, 'hello', [{ l: 6 }, , 7, 'world']] }] }
-// const obj = { a: [{ m: 6 }, , 7, 'hello'] }
-
-
-console.log(
-  objToPath(obj)
-)
