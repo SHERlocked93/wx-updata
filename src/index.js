@@ -1,10 +1,4 @@
-function isArray(tar) {
-    return Array.isArray(tar)
-}
-
-function isObject(tar) {
-    return (typeof tar === 'object') && (tar !== null) && !isArray(tar)
-}
+import { isObject, isArray } from './utils'
 
 /**
  * 处理数组
@@ -14,14 +8,15 @@ function isObject(tar) {
  */
 const handleArray = (value, curPath, store) => {
     value.forEach((item, idx) => {        // forEach 会跳过数组空位
-        if (item === Empty) return
-        const arrPath = `${ curPath }[${ idx }]`  // 拼接数组路径
-        if (isObject(item)) {
-            objToPath(item, arrPath + '.', store)
-        } else if (isArray(item)) {
-            handleArray(item, arrPath, store)
-        } else {
-            store[arrPath] = item
+        if (item !== Empty) {
+            const arrPath = `${ curPath }[${ idx }]`  // 拼接数组路径
+            if (isObject(item)) {
+                objToPath(item, arrPath + '.', store)
+            } else if (isArray(item)) {
+                handleArray(item, arrPath, store)
+            } else {
+                store[arrPath] = item
+            }
         }
     })
 }

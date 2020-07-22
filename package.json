@@ -1,12 +1,12 @@
 {
   "name": "wx-updata",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "微信小程序官方 setData 替代品",
   "main": "dist/wx-updata.js",
   "types": "index.d.ts",
   "scripts": {
     "build": "rollup -c",
-    "postversion": "yarn build && git push --tags && git push && npm publish"
+    "postversion": "git push --tags && git push && npm publish"
   },
   "repository": {
     "type": "git",
