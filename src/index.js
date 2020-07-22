@@ -39,7 +39,7 @@ export const objToPath = (obj,
           ? key
           : prefix.endsWith('].')
             ? `${ prefix }${ key }`
-            : `${ prefix }/${ key }`
+            : `${ prefix }.${ key }`
 
         if (isObject(value)) {                    // 是对象
             objToPath(value, curPath, store)
