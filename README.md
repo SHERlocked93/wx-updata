@@ -2,7 +2,10 @@
 
 微信小程序官方 setData 替代品 ✈️
 
-小程序代码片段预览地址： https://developers.weixin.qq.com/s/cJABB1mL7YjJ
+教程地址：[开发微信小程序，我为什么放弃 setData，使用 upData](https://juejin.im/post/5f17efb55188252e7811dcdd#comment)
+
+小程序代码片段预览地址： https://developers.weixin.qq.com/s/CcXdO1mc73jD
+小程序代码片段代码地址： https://github.com/SHERlocked93/wx-updata-demo
 
 [![npm](https://img.shields.io/npm/v/wx-updata.svg)](https://www.npmjs.com/package/wx-updata) [![npm](https://img.shields.io/npm/dt/wx-updata.svg)](https://www.npmjs.com/package/wx-updata)
 
@@ -10,7 +13,7 @@
 
 ## 优势
 
-- 支持 setData 对象自动合并，就不用写蹩脚的对象路径了 🥳
+- 支持 setData 对象自动合并，不用写蹩脚的对象路径了 🥳
 - 支持对象中嵌套数组，数组中嵌套对象；
 - 如果数组的某个值你不希望覆盖，请使用数组空位来跳过这个数组项，比如 `[1,,3]` 这个数组中间就是数组空位；
 - 如果数组空位你的 Eslint 报错，可以使用 wx-updata 提供的 Empty 来代替 `[1, Empty, 3]`
