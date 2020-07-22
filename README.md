@@ -13,6 +13,7 @@
 - 支持 setData 对象自动合并，就不用写蹩脚的对象路径了 🥳
 - 支持对象中嵌套数组，数组中嵌套对象；
 - 如果数组的某个值你不希望覆盖，请使用数组空位来跳过这个数组项，比如 `[1,,3]` 这个数组中间就是数组空位；
+- 如果数组空位你的 Eslint 报错，可以使用 wx-updata 提供的 Empty 来代替 `[1, Empty, 3]`
 
 ## 安装
 
@@ -86,13 +87,32 @@ Page({
 
 ## API
 
-`Page.prototype.upData(Object data, Function callback)`
+###  `Page.prototype.upData(Object data, Function callback)`
 
 1. `data`： 你希望设置的 data
 2. `callback`： 跟 [setData](https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#Page.prototype.setData(Object%20data,%20Function%20callback)) 第二个参数一样，引起界面更新渲染完毕后的回调函数
 
-`updataInit(Page, config)`
+### `updataInit(Page, config)`
 
 1. `Page`： 页面对象，需要在 `app.js` 中调用；
-2. `config`： 现在提供了一个配置参数 `{ debug: true }`，会将路径化后的 data 打印出来，帮助用户进行调试；
+2. `config`： 若提供配置参数 `{ debug: true }`，会将路径化后的 data 打印出来，帮助用户进行调试；
 
+### `objToPath(Object data)`
+
+1. `data`： 你希望设置的 data 对象
+
+
+## 使用
+
+### 使用 Empty 代替数组空位
+
+```javascript
+// 页面代码中
+import { Empty } from './miniprogram_npm/wx-updata/index'
+
+this.upData({
+    info: { height: 155 },
+    desc: [{ age: 13 }, '帅哥'],
+    family: [Empty, Empty, [Empty, Empty, Empty, { color: '灰色' }]]
+})
+```

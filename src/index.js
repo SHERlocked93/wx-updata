@@ -14,6 +14,7 @@ function isObject(tar) {
  */
 const handleArray = (value, curPath, store) => {
     value.forEach((item, idx) => {        // forEach 会跳过数组空位
+        if (item === Empty) return
         const arrPath = `${ curPath }[${ idx }]`  // 拼接数组路径
         if (isObject(item)) {
             objToPath(item, arrPath + '.', store)
@@ -24,6 +25,9 @@ const handleArray = (value, curPath, store) => {
         }
     })
 }
+
+// 可以使用 Symbol 跳过数组项
+export const Empty = Symbol('updata empty array item')
 
 /**
  * 对象转化为路径格式对象

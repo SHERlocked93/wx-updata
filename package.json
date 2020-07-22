@@ -1,6 +1,6 @@
 {
   "name": "wx-updata",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "微信小程序官方 setData 替代品",
   "main": "dist/wx-updata.js",
   "types": "index.d.ts",
