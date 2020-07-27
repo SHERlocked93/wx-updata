@@ -5,13 +5,18 @@ import { isObject, isArray } from './utils'
  * @param value 当前值
  * @param curPath 当前路径
  * @param store 结果
+ * @param config arrObjPath:是否开启数组路径表示功能
  */
-const handleArray = (value, curPath, store) => {
+const handleArray = (value, curPath, store, config = {}) => {
     value.forEach((item, idx) => {        // forEach 会跳过数组空位
         if (item !== Empty) {
             const arrPath = `${ curPath }[${ idx }]`  // 拼接数组路径
             if (isObject(item)) {
-                objToPath(item, arrPath + (Object.keys(item).every(key => /^\[\d+]$/.test(key)) ? '' : '.'), store)
+                if (config.arrObjPath) {
+                    objToPath(item, arrPath + (Object.keys(item).every(key => /^\[\d+]$/.test(key) || config.arrObjPath) ? '' : '.'), store, config)
+                } else {
+                    objToPath(item, arrPath + '.', store, config)
+                }
             } else if (isArray(item)) {
                 handleArray(item, arrPath, store)
             } else {
@@ -29,17 +34,26 @@ export const Empty = Symbol('updata empty array item')
  * @param obj 要转化的对象
  * @param prefix 路径前缀
  * @param store 结果
+ * @param config arrObjPath:是否开启数组路径表示功能
+ * @return {{}}
  */
 export const objToPath = (obj,
                           prefix = '',
-                          store = {}) => {
+                          store = {},
+                          config = {}) => {
+    if (typeof prefix !== 'string') {  // 参数重载
+        config = prefix
+        prefix = ''
+    }
     let arrPath = false  // 判断是否是数组路径
-    if (Object.keys(obj).every(key => /^\[\d+]$/.test(key))) {
-        arrPath = true
-    } else if (!Object.keys(obj).some(key => /^\[\d+]$/.test(key))) {
-        arrPath = false
-    } else {
-        throw new Error('wx-updata: 数组路径对象需要每个属性都是对象路径 [数组下标] 形式')
+    if (config.arrObjPath) {
+        if (Object.keys(obj).every(key => /^\[\d+]$/.test(key))) {
+            arrPath = true
+        } else if (!Object.keys(obj).some(key => /^\[\d+]$/.test(key))) {
+            arrPath = false
+        } else {
+            throw new Error('wx-updata: 数组路径对象需要每个属性都是对象路径 [数组下标] 形式')
+        }
     }
 
     for (const [key, value] of Object.entries(obj)) {
@@ -50,9 +64,9 @@ export const objToPath = (obj,
             : `${ prefix }.${ key }`
 
         if (isObject(value)) {                    // 是对象
-            objToPath(value, curPath, store)
+            objToPath(value, curPath, store, config)
         } else if (isArray(value)) {              // 是数组
-            handleArray(value, curPath, store)
+            handleArray(value, curPath, store, config)
         } else {
             store[curPath] = value
         }
@@ -70,10 +84,11 @@ export const updataInit = (Page, conf) => {
     const originalPage = Page
     return function(config) {
         config.upData = function(data, func) {
+            const result = objToPath(data, { arrObjPath: conf.arrObjPath })
             if (conf.debug) {
-                console.log('转化后效果:', objToPath(data))
+                console.log('转化后效果:', result)
             }
-            return this.setData(objToPath(data), func)
+            return this.setData(result, func)
         }
         return originalPage(config)
     }

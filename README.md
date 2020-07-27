@@ -18,7 +18,7 @@
 - 支持对象中嵌套数组，数组中嵌套对象；
 - 如果数组的某个值你不希望覆盖，请使用数组空位来跳过这个数组项，比如 `[1,,3]` 这个数组中间就是数组空位；
 - 如果数组空位你的 Eslint 报错，可以使用 wx-updata 提供的 Empty 来代替 `[1, Empty, 3]`
-- 如果数组空位你不习惯，或者不乐意数逗号个数，可以试试部分路径方式 `[1,,3]` -> `{'[0]': 1, '[2]': 3}`
+- 如果数组空位你不习惯，或者不乐意数逗号个数，可以试试数组的对象路径方式 `[1,,3]` -> `{'[0]': 1, '[2]': 3}`
 
 ## 安装
 
@@ -47,7 +47,6 @@ $ yarn add wx-updata
 ```javascript
 // app.js
 import { updataInit } from './miniprogram_npm/wx-updata/index'  // 你的库文件路径
-
 
 App({
     onLaunch() {
@@ -100,12 +99,14 @@ Page({
 ### `updataInit(Page, config)`
 
 1. `Page`： 页面对象，需要在 `app.js` 中调用；
-2. `config`： 若提供配置参数 `{ debug: true }`，会将路径化后的 data 打印出来，帮助用户进行调试；
-
-### `objToPath(Object data)`
+2. `config` 配置
+   - 配置参数 `{ debug: true }`，会将路径化后的 data 打印出来，帮助用户进行调试，默认 false 不开启；
+   - 配置参数 `{ arrObjPath: true }`，会开启数组的对象路径方式功能，默认 false 不开启；
+### `objToPath(Object data, Object config)`
 
 1. `data`： 你希望设置的 data 对象
-
+2. `config` 配置
+   - 配置参数 `{ arrObjPath: true }`，会开启数组的对象路径方式功能，默认 false 不开启；
 
 ## 使用
 
@@ -123,6 +124,8 @@ this.upData({
 ```
 ### 使用数组路径方式
 
+如果数组空位你不习惯，或者不乐意数逗号个数，可以试试数组的对象路径方式，需要传递 config 的配置 `{arrObjPath: true}`
+
 ```javascript
 // 页面代码中
 import { Empty } from './miniprogram_npm/wx-updata/index'
@@ -131,7 +134,7 @@ import { Empty } from './miniprogram_npm/wx-updata/index'
 this.upData({
     info: { height: 155 },
     desc: [{ age: 13 }, '帅哥'],
-    family: [Empty, Empty, [Empty, Empty, Empty, { color: '灰色' }]]
+    family: [, , [, , , { color: '灰色' }]]
 })
 
 // 使用数组路径方式
