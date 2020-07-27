@@ -133,14 +133,14 @@ import { Empty } from './miniprogram_npm/wx-updata/index'
 // 原来的方式
 this.upData({
     info: { height: 155 },
-    desc: [{ age: 13 }, '帅哥'],
+    desc: [, '靓仔'],
     family: [, , [, , , { color: '灰色' }]]
 })
 
 // 使用数组路径方式
 this.upData({
     info: { height: 155 },
-    desc: [{ age: 13 }, '帅哥'],
+    desc: {'[1]': '靓仔'},
     family: { '[2]': { '[3]': { color: '灰色' }
 })
 ```
