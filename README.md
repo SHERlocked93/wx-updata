@@ -2,9 +2,10 @@
 
 微信小程序官方 setData 替代品 ✈️
 
-教程地址：[开发微信小程序，我为什么放弃 setData，使用 upData](https://juejin.im/post/5f17efb55188252e7811dcdd#comment)
+教程地址：[<开发微信小程序，我为什么放弃 setData，使用 upData>](https://juejin.im/post/5f17efb55188252e7811dcdd#comment)
 
 小程序代码片段预览地址： https://developers.weixin.qq.com/s/CcXdO1mc73jD
+
 小程序代码片段代码地址： https://github.com/SHERlocked93/wx-updata-demo
 
 [![npm](https://img.shields.io/npm/v/wx-updata.svg)](https://www.npmjs.com/package/wx-updata) [![npm](https://img.shields.io/npm/dt/wx-updata.svg)](https://www.npmjs.com/package/wx-updata)
@@ -17,6 +18,7 @@
 - 支持对象中嵌套数组，数组中嵌套对象；
 - 如果数组的某个值你不希望覆盖，请使用数组空位来跳过这个数组项，比如 `[1,,3]` 这个数组中间就是数组空位；
 - 如果数组空位你的 Eslint 报错，可以使用 wx-updata 提供的 Empty 来代替 `[1, Empty, 3]`
+- 如果数组空位你不习惯，或者不乐意数逗号个数，可以试试部分路径方式 `[1,,3]` -> `{'[0]': 1, '[2]': 3}`
 
 ## 安装
 
@@ -117,5 +119,25 @@ this.upData({
     info: { height: 155 },
     desc: [{ age: 13 }, '帅哥'],
     family: [Empty, Empty, [Empty, Empty, Empty, { color: '灰色' }]]
+})
+```
+### 使用数组路径方式
+
+```javascript
+// 页面代码中
+import { Empty } from './miniprogram_npm/wx-updata/index'
+
+// 原来的方式
+this.upData({
+    info: { height: 155 },
+    desc: [{ age: 13 }, '帅哥'],
+    family: [Empty, Empty, [Empty, Empty, Empty, { color: '灰色' }]]
+})
+
+// 使用数组路径方式
+this.upData({
+    info: { height: 155 },
+    desc: [{ age: 13 }, '帅哥'],
+    family: { '[2]': { '[3]': { color: '灰色' }
 })
 ```

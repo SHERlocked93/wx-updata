@@ -11,7 +11,7 @@ const handleArray = (value, curPath, store) => {
         if (item !== Empty) {
             const arrPath = `${ curPath }[${ idx }]`  // 拼接数组路径
             if (isObject(item)) {
-                objToPath(item, arrPath + '.', store)
+                objToPath(item, arrPath + (Object.keys(item).every(key => /^\[\d+]$/.test(key)) ? '' : '.'), store)
             } else if (isArray(item)) {
                 handleArray(item, arrPath, store)
             } else {
@@ -33,10 +33,19 @@ export const Empty = Symbol('updata empty array item')
 export const objToPath = (obj,
                           prefix = '',
                           store = {}) => {
+    let arrPath = false  // 判断是否是数组路径
+    if (Object.keys(obj).every(key => /^\[\d+]$/.test(key))) {
+        arrPath = true
+    } else if (!Object.keys(obj).some(key => /^\[\d+]$/.test(key))) {
+        arrPath = false
+    } else {
+        throw new Error('wx-updata: 数组路径对象需要每个属性都是对象路径 [数组下标] 形式')
+    }
+
     for (const [key, value] of Object.entries(obj)) {
         const curPath = prefix === ''  // 当前路径
           ? key
-          : prefix.endsWith('].')
+          : (prefix.endsWith('].') || arrPath)
             ? `${ prefix }${ key }`
             : `${ prefix }.${ key }`
 

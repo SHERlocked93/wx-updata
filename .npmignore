@@ -1,3 +1,4 @@
 vuepress-deploy.sh
 yarn.lock
 docs
+.idea
