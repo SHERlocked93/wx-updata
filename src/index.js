@@ -65,7 +65,7 @@ export const objToPath = (obj,
 
         if (isObject(value)) {                    // 是对象
             objToPath(value, curPath, store, config)
-        } else if (isArray(value)) {              // 是数组
+        } else if (!config.arrCover && isArray(value)) {              // 是数组
             handleArray(value, curPath, store, config)
         } else {
             store[curPath] = value
@@ -84,7 +84,7 @@ export const updataInit = (Page, conf) => {
     const originalPage = Page
     return function(config) {
         config.upData = function(data, func) {
-            const result = objToPath(data, { arrObjPath: conf.arrObjPath })
+            const result = objToPath(data, { arrObjPath: conf.arrObjPath ?? false, arrCover: conf.arrCover ?? false })
             if (conf.debug) {
                 console.log('转化后效果:', result)
             }
