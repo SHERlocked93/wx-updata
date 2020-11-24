@@ -109,6 +109,7 @@ Page({
 1. `data`： 你希望设置的 data 对象
 2. `config` 配置
    - 配置参数 `{ arrObjPath: true }`，会开启数组的对象路径方式功能，默认 false 不开启；
+   - 配置参数 `{ arrCover: true }`，数组会直接覆盖，而不会只修改数组的某几项，默认 false 不开启（设置 true，arrObjPath 会失效）；
 
 ## 使用
 
